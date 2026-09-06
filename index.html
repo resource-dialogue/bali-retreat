@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ретрит на Бали — пространство для себя</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --jungle: #1E3629;
+    --jungle-deep: #12241B;
+    --cream: #EFE8D8;
+    --cream-soft: #F6F1E5;
+    --clay: #B5754A;
+    --gold: #C79A4B;
+    --ink: #14120E;
+    --line: rgba(20,18,14,0.12);
+    --line-light: rgba(239,232,216,0.22);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Manrope',sans-serif;
+    background:var(--cream-soft);
+    color:var(--ink);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'Fraunces',serif;
+    font-weight:500;
+    letter-spacing:-0.01em;
+  }
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px;}
+  .eyebrow{
+    font-size:12px;
+    letter-spacing:0.16em;
+    text-transform:uppercase;
+    font-weight:600;
+    color:var(--clay);
+    display:flex;align-items:center;gap:10px;
+  }
+  .eyebrow::before{content:"";width:22px;height:1px;background:var(--clay);display:inline-block;}
+  @media(prefers-reduced-motion: no-preference){
+    .reveal{opacity:0;transform:translateY(18px);transition:opacity .8s ease, transform .8s ease;}
+    .reveal.in{opacity:1;transform:translateY(0);}
+  }
+
+  /* ===== NAV ===== */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    padding:18px 0;
+    background:rgba(239,232,216,0.0);
+    transition:background .3s ease, backdrop-filter .3s ease, box-shadow .3s ease;
+  }
+  nav.scrolled{
+    background:rgba(246,241,229,0.92);
+    backdrop-filter:blur(10px);
+    box-shadow:0 1px 0 var(--line);
+  }
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;}
+  .logo{font-family:'Fraunces',serif;font-size:19px;font-weight:500;color:var(--cream);letter-spacing:0.01em;}
+  nav.scrolled .logo{color:var(--ink);}
+  .nav-cta{
+    font-size:13px;font-weight:600;color:var(--cream);
+    border:1px solid var(--line-light);
+    padding:9px 18px;border-radius:100px;
+    transition:all .25s ease;
+  }
+  nav.scrolled .nav-cta{color:var(--ink);border-color:var(--line);}
+  .nav-cta:hover{background:var(--gold);border-color:var(--gold);color:var(--ink);}
+
+  /* ===== HERO ===== */
+  .hero{
+    position:relative;min-height:100vh;
+    display:flex;align-items:flex-end;
+    background:var(--jungle-deep);
+    overflow:hidden;
+    padding-bottom:64px;
+  }
+  .hero-media{position:absolute;inset:0;z-index:0;}
+  .hero-media img{width:100%;height:100%;object-fit:cover;object-position:center 55%;}
+  .hero-scrim{position:absolute;inset:0;z-index:1;
+    background:linear-gradient(180deg, rgba(13,20,15,0.5) 0%, rgba(13,20,15,0.55) 45%, rgba(13,20,15,0.97) 100%);}
+  .hero-content{position:relative;z-index:2;}
+  .hero .wrap{width:100%;}
+  .hero-panel{
+    max-width:100%;
+  }
+  .hero-eyebrow{color:var(--gold);text-shadow:0 1px 3px rgba(0,0,0,0.6), 0 2px 12px rgba(0,0,0,0.5);}
+  .hero-eyebrow::before{background:var(--gold);box-shadow:0 1px 3px rgba(0,0,0,0.6);}
+  .hero h1{
+    color:var(--cream);
+    font-size:clamp(38px,6.4vw,74px);
+    line-height:1.04;
+    margin:22px 0 26px;
+    max-width:14ch;
+    text-shadow:0 2px 6px rgba(0,0,0,0.55), 0 8px 30px rgba(0,0,0,0.4);
+  }
+  .hero h1 em{font-style:italic;color:var(--gold);font-weight:400;text-shadow:0 2px 6px rgba(0,0,0,0.65), 0 8px 30px rgba(0,0,0,0.5);}
+  .hero-sub{
+    text-shadow:0 1px 4px rgba(0,0,0,0.55), 0 4px 16px rgba(0,0,0,0.35);
+    color:rgba(239,232,216,0.78);
+    font-size:17px;max-width:46ch;margin-bottom:36px;
+  }
+  .hero-meta{
+    display:flex;gap:36px;flex-wrap:wrap;
+    padding-top:28px;border-top:1px solid var(--line-light);
+    max-width:640px;
+  }
+  .hero-meta div{display:flex;flex-direction:column;gap:4px;}
+  .hero-meta .num{font-family:'Fraunces',serif;font-size:22px;color:var(--cream);}
+  .hero-meta .lbl{font-size:12px;color:rgba(239,232,216,0.55);letter-spacing:0.04em;}
+
+  /* ===== BUTTONS ===== */
+  .btn{
+    display:inline-flex;align-items:center;gap:10px;
+    background:var(--gold);color:var(--jungle-deep);
+    font-weight:700;font-size:14.5px;
+    padding:15px 28px;border-radius:100px;
+    transition:transform .2s ease, box-shadow .2s ease;
+    box-shadow:0 8px 24px -8px rgba(199,154,75,0.6);
+  }
+  .btn:hover{transform:translateY(-2px);box-shadow:0 12px 28px -8px rgba(199,154,75,0.75);}
+  .btn-ghost{
+    background:transparent;color:var(--ink);border:1px solid var(--line);
+    box-shadow:none;
+  }
+  .btn-ghost:hover{background:var(--ink);color:var(--cream-soft);transform:translateY(-2px);}
+  .btn-row{display:flex;gap:14px;flex-wrap:wrap;margin-top:8px;}
+
+  /* ===== SECTION GENERIC ===== */
+  section{padding:110px 0;}
+  .section-head{max-width:640px;margin-bottom:56px;}
+  .section-head h2{font-size:clamp(28px,3.6vw,42px);margin-top:16px;line-height:1.12;}
+
+  /* ===== PAIN ===== */
+  .pain{background:var(--cream-soft);}
+  .pain-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+  .pain-item{background:var(--cream-soft);padding:32px;display:flex;gap:16px;}
+  .pain-item .mark{font-family:'Fraunces',serif;font-style:italic;color:var(--clay);font-size:22px;flex-shrink:0;}
+  .pain-item p{font-size:18px;line-height:1.5;color:rgba(20,18,14,0.75);}
+  @media(max-width:720px){.pain-grid{grid-template-columns:1fr;}}
+
+  /* ===== PROMISE ===== */
+  .promise{background:var(--jungle);color:var(--cream);}
+  .promise .eyebrow{color:var(--gold);}
+  .promise .eyebrow::before{background:var(--gold);}
+  .promise h2{color:var(--cream);}
+  .promise-lead{font-size:19px;max-width:60ch;color:rgba(239,232,216,0.82);margin-top:20px;}
+  .promise-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:56px;}
+  .promise-card{border-top:1px solid var(--line-light);padding-top:22px;}
+  .promise-card .n{font-family:'Fraunces',serif;font-style:italic;color:var(--gold);font-size:15px;}
+  .promise-card h3{font-size:19px;margin:10px 0 10px;color:var(--cream);}
+  .promise-card p{font-size:14.5px;color:rgba(239,232,216,0.68);}
+  @media(max-width:820px){.promise-grid{grid-template-columns:1fr;}}
+
+  /* ===== PROGRAM TIMELINE ===== */
+  .program{background:var(--cream-soft);}
+  .timeline{position:relative;margin-top:20px;}
+  .timeline::before{content:"";position:absolute;left:15px;top:8px;bottom:8px;width:1px;background:var(--line);}
+  .t-item{position:relative;padding:0 0 44px 52px;}
+  .t-item:last-child{padding-bottom:0;}
+  .t-dot{position:absolute;left:0;top:2px;width:31px;height:31px;border-radius:50%;
+    background:var(--cream-soft);border:1px solid var(--clay);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Fraunces',serif;font-size:12px;color:var(--clay);font-style:italic;}
+  .t-item h3{font-size:20px;margin-bottom:8px;}
+  .t-item p{font-size:15px;color:rgba(20,18,14,0.72);max-width:60ch;}
+  .t-item ul{list-style:none;max-width:62ch;}
+  .t-item ul li{position:relative;padding-left:16px;font-size:15px;color:rgba(20,18,14,0.72);margin-bottom:8px;}
+  .t-item ul li::before{content:"—";position:absolute;left:0;color:var(--clay);}
+  .t-item ul li:last-child{margin-bottom:0;}
+
+  /* ===== PHOTO BAND ===== */
+  .photo-band{position:relative;height:56vh;min-height:380px;overflow:hidden;}
+  .photo-band img{width:100%;height:100%;object-fit:cover;object-position:center 35%;}
+  .photo-band.photo-full{height:70vh;min-height:460px;
+    background:linear-gradient(180deg, #F7C9A8 0%, #E8A6B0 22%, #9C7FAE 42%, #5C86AE 62%, #2E5C78 80%, #16232C 100%);
+    display:flex;align-items:center;justify-content:center;padding:0;overflow:hidden;position:relative;}
+  .photo-band.photo-full::before{content:"";position:absolute;inset:0;
+    background:radial-gradient(ellipse 60% 40% at 50% 8%, rgba(255,235,210,0.55), transparent 70%);}
+  .photo-band.photo-full .band-bg{display:none;}
+  .photo-band.photo-full .band-fg{position:relative;z-index:2;width:auto;height:auto;
+    max-width:92%;max-height:88%;object-fit:contain;box-shadow:0 30px 90px -20px rgba(10,20,30,0.55);}
+  .photo-band .band-cap{position:absolute;bottom:28px;left:24px;right:24px;max-width:1120px;margin:0 auto;
+    display:flex;justify-content:space-between;align-items:flex-end;color:var(--cream);}
+  .photo-band .band-cap span{font-size:13px;letter-spacing:0.04em;}
+  .photo-band .band-cap .eyebrow{color:var(--gold);margin-bottom:0;}
+  .photo-band .band-cap .eyebrow::before{background:var(--gold);}
+
+  /* ===== PLACE ===== */
+  .place{background:var(--cream-soft);}
+  .place-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:64px;align-items:center;}
+  .place-visual{
+    aspect-ratio:4/5;border-radius:4px;position:relative;overflow:hidden;
+    background:
+      linear-gradient(160deg, #2C4A3B 0%, #1E3629 45%, #142219 100%);
+  }
+  .place-visual .terraces{position:absolute;inset:0;}
+  .place-visual .terrace{position:absolute;left:-10%;right:-10%;height:14%;border-top:1px solid rgba(239,232,216,0.14);}
+  .place-visual .sun{position:absolute;top:14%;right:18%;width:90px;height:90px;border-radius:50%;
+    background:radial-gradient(circle,var(--gold),transparent 70%);opacity:.85;filter:blur(2px);}
+  .place-visual .cap{position:absolute;bottom:24px;left:24px;right:24px;color:var(--cream);font-size:13px;
+    display:flex;justify-content:space-between;border-top:1px solid var(--line-light);padding-top:14px;}
+  .place-list{list-style:none;margin-top:28px;}
+  .place-list li{display:flex;gap:14px;padding:16px 0;border-top:1px solid var(--line);font-size:15px;}
+  .place-list li:last-child{border-bottom:1px solid var(--line);}
+  .place-list b{font-family:'Fraunces',serif;font-weight:500;min-width:120px;display:inline-block;}
+  @media(max-width:880px){.place-grid{grid-template-columns:1fr;gap:36px;}}
+
+  /* ===== GALLERY ===== */
+  .gallery{background:var(--cream-soft);}
+  .gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:20px;}
+  .gallery-grid img{width:100%;height:100%;object-fit:cover;border-radius:4px;aspect-ratio:3/4;}
+  @media(max-width:880px){
+    .gallery-grid{grid-template-columns:repeat(2,1fr);}
+  }
+  @media(max-width:520px){
+    .gallery-grid{grid-template-columns:1fr;}
+  }
+
+  /* ===== HOST ===== */
+  .host{background:var(--jungle-deep);color:var(--cream);}
+  .host-people{display:grid;grid-template-columns:repeat(2,1fr);gap:40px;margin-top:40px;}
+  .host-person{display:flex;flex-direction:column;gap:18px;}
+  .host-photo{width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:6px;display:block;}
+  .host-person h3{font-size:20px;color:var(--cream);margin-bottom:4px;}
+  .host-person .role{font-size:13.5px;color:var(--gold);margin-bottom:8px;display:block;}
+  .host-person p{color:rgba(239,232,216,0.7);font-size:14.5px;}
+  .host h2{color:var(--cream);margin-bottom:14px;}
+  .host > .wrap > p{color:rgba(239,232,216,0.72);font-size:16px;max-width:64ch;}
+  @media(max-width:640px){.host-people{grid-template-columns:1fr;max-width:340px;}}
+  @media(max-width:720px){.host-people{grid-template-columns:1fr;gap:28px;}}
+
+  /* ===== PRICING ===== */
+  .pricing{background:var(--cream-soft);}
+  .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:20px;}
+  .price-card{border:1px solid var(--line);padding:36px 28px;border-radius:6px;background:var(--cream-soft);position:relative;transition:border-color .2s ease, transform .2s ease;}
+  .price-card:hover{transform:translateY(-4px);border-color:var(--clay);}
+  .price-card.featured{background:var(--jungle);color:var(--cream);border-color:var(--jungle);}
+  .price-card .tier{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--clay);font-weight:700;}
+  .price-card.featured .tier{color:var(--gold);}
+  .price-card .amount{font-family:'Fraunces',serif;font-size:36px;margin:14px 0 4px;}
+  .price-card .per{font-size:13px;color:rgba(20,18,14,0.5);margin-bottom:22px;display:block;}
+  .price-card.featured .per{color:rgba(239,232,216,0.55);}
+  .price-card ul{list-style:none;margin-bottom:26px;}
+  .price-card li{font-size:14px;padding:9px 0;border-top:1px solid var(--line);}
+  .price-card.featured li{border-top:1px solid var(--line-light);}
+  .price-card .btn{width:100%;justify-content:center;}
+  .badge{position:absolute;top:-12px;right:24px;background:var(--gold);color:var(--jungle-deep);
+    font-size:11px;font-weight:700;padding:5px 12px;border-radius:100px;letter-spacing:.04em;}
+  @media(max-width:900px){.price-grid{grid-template-columns:1fr;}}
+
+  /* ===== FAQ ===== */
+  .faq{background:var(--cream-soft);}
+  .faq-item{border-top:1px solid var(--line);}
+  .faq-item:last-child{border-bottom:1px solid var(--line);}
+  .faq-q{padding:24px 0;display:flex;justify-content:space-between;align-items:center;cursor:pointer;gap:20px;}
+  .faq-q h3{font-size:17px;font-weight:600;font-family:'Manrope',sans-serif;}
+  .faq-q .plus{font-family:'Fraunces',serif;font-size:22px;color:var(--clay);transition:transform .3s ease;flex-shrink:0;}
+  .faq-item.open .plus{transform:rotate(45deg);}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .35s ease;}
+  .faq-item.open .faq-a{max-height:200px;}
+  .faq-a p{padding-bottom:24px;font-size:15px;color:rgba(20,18,14,0.7);max-width:64ch;}
+
+  /* ===== FINAL CTA ===== */
+  .final{
+    background:linear-gradient(180deg, var(--jungle) 0%, var(--jungle-deep) 100%);
+    color:var(--cream);text-align:center;position:relative;overflow:hidden;
+  }
+  .final .wrap{position:relative;z-index:2;}
+  .final .eyebrow{justify-content:center;color:var(--gold);}
+  .final .eyebrow::before{display:none;}
+  .final h2{color:var(--cream);font-size:clamp(30px,5vw,52px);margin:18px auto 20px;max-width:16ch;}
+  .final p{color:rgba(239,232,216,0.72);max-width:50ch;margin:0 auto 34px;font-size:16px;}
+  .final .btn-row{justify-content:center;}
+
+  footer{background:var(--jungle-deep);color:rgba(239,232,216,0.5);padding:32px 0;font-size:13px;}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;}
+
+  /* sticky mobile cta */
+  .sticky-cta{
+    position:fixed;bottom:0;left:0;right:0;z-index:60;
+    background:var(--cream-soft);border-top:1px solid var(--line);
+    padding:12px 16px;display:none;
+    box-shadow:0 -6px 20px rgba(0,0,0,0.08);
+  }
+  .sticky-cta .btn{width:100%;justify-content:center;}
+  @media(max-width:720px){
+    .sticky-cta{display:block;}
+    body{padding-bottom:72px;}
+    section{padding:72px 0;}
+    .host .wrap, .place-grid{gap:28px;}
+  }
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <div class="wrap">
+    <div class="logo">Bali Reset</div>
+    <a href="https://wa.me/77716657735" class="nav-cta">Написать в WhatsApp</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-media">
+    <img src="assets/pool.jpeg" alt="Бассейн ретритной виллы в Чангу, Бали">
+  </div>
+  <div class="hero-scrim"></div>
+  <div class="wrap hero-content">
+    <div class="hero-panel">
+      <div class="eyebrow hero-eyebrow">Ретрит · Бали · 7–13 октября 2026</div>
+      <h1>Семь дней, чтобы <em>перезагрузиться</em> — и вспомнить себя</h1>
+      <p class="hero-sub">Йога на рассвете, балийские церемонии очищения, комфортная атмосфера и расслабление, в котором ты почувствуешь контакт с собой.</p>
+      <div class="btn-row">
+        <a href="#cta" class="btn">Написать организатору →</a>
+        <a href="#program" class="btn btn-ghost">Смотреть программу</a>
+      </div>
+      <div class="hero-meta">
+        <div><span class="num">7–13 окт</span><span class="lbl">2026, даты заезда</span></div>
+        <div><span class="num">10 мест</span><span class="lbl">камерная группа</span></div>
+        <div><span class="num">Чангу</span><span class="lbl">западное побережье Бали</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pain">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Узнаёте себя?</div>
+      <h2>Городская жизнь создаёт напряжение и незаметно забирает нас у самих себя</h2>
+    </div>
+    <div class="pain-grid reveal">
+      <div class="pain-item"><span class="mark">«</span><p>Вы держите на себе работу, семью, чужие ожидания — и давно не спрашивали себя, а чего хотите вы сами.</p></div>
+      <div class="pain-item"><span class="mark">«</span><p>Отпуск заканчивается раньше, чем вы успеваете выдохнуть — тело отдыхает, а голова так и не останавливается.</p></div>
+      <div class="pain-item"><span class="mark">«</span><p>Вы умеете заботиться обо всех вокруг, но забота о себе всегда оказывается в конце списка.</p></div>
+      <div class="pain-item"><span class="mark">«</span><p>Хочется не очередной короткой перезагрузки, а по-настоящему честного разговора с собой — с поддержкой рядом.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="promise">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Что даёт ретрит</div>
+      <h2>Пространство, где можно позволить себе просто быть собой</h2>
+      <p class="promise-lead">Это не туристическая поездка и не марафон активностей. Это возможность прикоснуться к культуре острова, найти внутренний покой и освободиться от стресса и напряжения. Семь дней с гибкой структурой дня, поддержкой и практиками, которые возвращают контакт с собой — телесный и эмоциональный.</p>
+    </div>
+    <div class="promise-grid">
+      <div class="promise-card reveal"><div class="n">тело</div><h3>Вернуть контакт с телом</h3><p>Йога и дыхательные практики на рассвете, в окружении природы — без спешки и оценивания себя.</p></div>
+      <div class="promise-card reveal"><div class="n">психика</div><h3>Разобраться в отношениях с собой</h3><p>Групповые сессии и практики: отношения, границы, опора, самоценность, разрешение себе быть неидеальной.</p></div>
+      <div class="promise-card reveal"><div class="n">ритуал</div><h3>Прожить настоящую церемонию</h3><p>Традиционные балийские обряды очищения с местными духовными проводниками — символическая точка, откуда начинается «после».</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="program" id="program">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Программа</div>
+      <h2>Как устроены семь дней</h2>
+    </div>
+    <div class="timeline reveal">
+      <div class="t-item">
+        <div class="t-dot">1</div>
+        <h3>Приземление</h3>
+        <ul>
+          <li>Заезд, знакомство с виллой и группой — узнаём друг друга в игровом лёгком формате общения</li>
+        </ul>
+      </div>
+      <div class="t-item">
+        <div class="t-dot">2</div>
+        <h3>Церемония очищения водой</h3>
+        <ul>
+          <li>Утренняя йога</li>
+          <li>Церемония очищения водой (проводится на вилле) — балийский аутентичный обряд, с которого начинается новый путь к себе. Это особенная церемония, которая имеет глубокое значение и нацелена на очищение души и тела от негативной энергии и стресса</li>
+          <li>Выезд на прогулку к океану</li>
+          <li>Вечерняя практика ресурсного диалога (расслабление ума и тела, контакт с внутренними ощущениями, источник ресурса) + практика благодарности</li>
+        </ul>
+      </div>
+      <div class="t-item">
+        <div class="t-dot">3</div>
+        <h3>Храм Танах Лот</h3>
+        <ul>
+          <li>Утренняя йога</li>
+          <li>Дневная сессия практики открытого диалога (снятие напряжения, проживание чувств, исцеление эмоционального выгорания)</li>
+          <li>Выезд на экскурсию в храм Tanah Lot — знаменитый океанский храм на отдельной скале, находящийся под охраной ЮНЕСКО</li>
+          <li>Вечерняя практика ресурсного диалога + практика благодарности</li>
+        </ul>
+      </div>
+      <div class="t-item">
+        <div class="t-dot">4</div>
+        <h3>Водопады и омовение</h3>
+        <ul>
+          <li>Утренняя йога</li>
+          <li>Экскурсия на водопады, фотографии с красивыми пейзажами, омовение священной водой, в каждой капле которой таится благословение</li>
+          <li>Дневная сессия практики открытого диалога</li>
+          <li>Вечерняя практика ресурсного диалога + практика благодарности</li>
+        </ul>
+      </div>
+      <div class="t-item">
+        <div class="t-dot">5</div>
+        <h3>Арт-парк Nuanu</h3>
+        <ul>
+          <li>Утренняя йога</li>
+          <li>Дневная сессия практики открытого диалога</li>
+          <li>Выезд в уникальный креативный арт-парк Nuanu</li>
+          <li>Вечерняя практика ресурсного диалога + практика благодарности</li>
+        </ul>
+      </div>
+      <div class="t-item">
+        <div class="t-dot">6</div>
+        <h3>Церемония очищения огнём</h3>
+        <ul>
+          <li>Утренняя йога</li>
+          <li>Церемония очищения огнём (проводится на вилле) — балийский обряд очищения у огня Агнихотра, который проводится на закате для гармонизации энергии</li>
+          <li>Групповая практика интеграции полученных эмоций, инсайтов и впечатлений</li>
+        </ul>
+      </div>
+      <div class="t-item">
+        <div class="t-dot">7</div>
+        <h3>Завершение</h3>
+        <ul>
+          <li>Прощальный завтрак, тёплые объятия, трансфер в аэропорт</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="place">
+  <div class="wrap place-grid">
+    <div class="place-visual reveal" style="background:none;">
+      <img src="assets/pool.jpeg" alt="Бассейн ретритной виллы в Чангу, Бали" style="width:100%;height:100%;object-fit:cover;">
+      <div class="cap" style="position:absolute;bottom:24px;left:24px;right:24px;">
+        <span>Чангу, Бали</span><span>тропический сад</span>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="eyebrow">Где мы живём</div>
+      <h2 style="margin-top:16px;font-size:clamp(26px,3.2vw,36px);">Традиционная балийская вилла в тропическом саду</h2>
+      <ul class="place-list">
+        <li><b>Проживание</b> Вилла с бассейном, размещение по 2 человека в комнате</li>
+        <li><b>Питание</b> Завтрак и обед включены каждый день, ужин — на ваш выбор: вечерами вместе выезжаем в город</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="gallery">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Атмосфера</div>
+      <h2>Как это выглядит вживую</h2>
+    </div>
+    <div class="gallery-grid reveal">
+      <img src="assets/villa-entrance.webp" alt="Встреча гостей на вилле ретрита в Чангу, Бали">
+      <img src="assets/room.webp" alt="Двухместная комната на вилле ретрита">
+      <img src="assets/yoga.jpg" alt="Практика йоги у бассейна на ретрите">
+      <img src="assets/ceremony.webp" alt="Балийская церемония очищения огнём">
+    </div>
+  </div>
+</section>
+
+<section class="host">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Организаторы</div>
+      <h2>Организатор и сопровождение группы</h2>
+      <p>Ретрит собирает и сопровождает команда, которая уже работала с групповыми программами и ретритами на Бали. Никто не остаётся один на один с новым опытом.</p>
+    </div>
+    <div class="host-people reveal">
+      <div class="host-person">
+        <img class="host-photo" src="assets/olga.jpeg" alt="Ольга — организатор ретрита, психолог">
+        <div>
+          <h3>Ольга</h3>
+          <span class="role">Организатор ретрита, психолог, фасилитатор</span>
+          <p>Ведущая групповых практик, отвечает за организацию и программу ретрита.</p>
+        </div>
+      </div>
+      <div class="host-person">
+        <img class="host-photo" src="assets/aygana.jpg" alt="Айгана — владелица виллы, йога-мастер">
+        <div>
+          <h3>Айгана</h3>
+          <span class="role">Владелица виллы, йога-мастер</span>
+          <p>Проводит практики йоги, отвечает за церемонии и логистику на месте.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Участие</div>
+      <h2>Форматы размещения</h2>
+    </div>
+    <div class="price-grid reveal" style="grid-template-columns:repeat(2,1fr);max-width:760px;">
+      <div class="price-card featured">
+        <span class="badge">Популярный выбор</span>
+        <div class="tier">Двухместное размещение</div>
+        <div class="amount">$1 200</div>
+        <span class="per">за 7 дней, 2 человека в комнате</span>
+        <ul>
+          <li>Проживание на вилле</li>
+          <li>Завтрак и обед каждый день</li>
+          <li>Полная программа ретрита</li>
+          <li>Церемонии очищения</li>
+          <li>Трансфер аэропорт-вилла</li>
+        </ul>
+        <a href="#cta" class="btn">Уточнить места</a>
+      </div>
+      <div class="price-card">
+        <div class="tier">Одноместное размещение</div>
+        <div class="amount">$1 500</div>
+        <span class="per">за 7 дней, отдельная комната</span>
+        <ul>
+          <li>Отдельная комната на вилле</li>
+          <li>Завтрак и обед каждый день</li>
+          <li>Полная программа ретрита</li>
+          <li>Церемонии очищения</li>
+          <li>Трансфер аэропорт-вилла</li>
+        </ul>
+        <a href="#cta" class="btn btn-ghost">Уточнить места</a>
+      </div>
+    </div>
+    <p style="margin-top:20px;font-size:13.5px;color:rgba(20,18,14,0.55);max-width:60ch;">Стоимость указана без учёта авиаперелёта. Ужин каждый вечер — по желанию, обсуждаем варианты в городе вместе с группой.</p>
+  </div>
+</section>
+
+<section class="faq">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <div class="eyebrow">Вопросы</div>
+      <h2>Прежде чем написать</h2>
+    </div>
+    <div class="reveal">
+      <div class="faq-item">
+        <div class="faq-q"><h3>Нужен ли опыт йоги или медитации?</h3><span class="plus">+</span></div>
+        <div class="faq-a"><p>Нет, все практики адаптируются под любой уровень. Важнее готовность быть честной с собой, а не физическая подготовка.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><h3>Можно поехать одной, без знакомых?</h3><span class="plus">+</span></div>
+        <div class="faq-a"><p>Да, большинство участниц едут именно так. Группа камерная, знакомство начинается с первого дня, и уже к третьему дню это ощущается как своя компания.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><h3>Что с перелётом и визой?</h3><span class="plus">+</span></div>
+        <div class="faq-a"><p>Перелёт и визу каждая участница организует самостоятельно — вы можете лететь из любого города. Виза на Бали для большинства стран оформляется по прилёту.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><h3>А что с ужином?</h3><span class="plus">+</span></div>
+        <div class="faq-a"><p>Завтрак и обед включены в программу каждый день. Вечером группа вместе выезжает в город — рестораны и кафе Чангу каждая выбирает по своему вкусу и бюджету.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q"><h3>Как забронировать место?</h3><span class="plus">+</span></div>
+        <div class="faq-a"><p>Напишите в WhatsApp — расскажем про ближайшие даты, ответим на вопросы и закрепим место депозитом.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="photo-band photo-full">
+  <img class="band-fg" src="assets/temple.png" alt="Храм Танах Лот на закате, Бали">
+</section>
+
+<section class="final" id="cta">
+  <div class="wrap">
+    <div class="eyebrow">Места ограничены — группа до 10 человек</div>
+    <h2>Готовы вернуться к себе на семь дней?</h2>
+    <p>Напишите пару слов о себе — расскажем про ближайшие даты, отвечу на все вопросы и помогу с подготовкой к поездке.</p>
+    <div class="btn-row">
+      <a href="https://wa.me/77716657735" class="btn">Написать в WhatsApp →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>Bali Reset · ретрит на Бали</span>
+  </div>
+</footer>
+
+<div class="sticky-cta">
+  <a href="https://wa.me/77716657735" class="btn">Написать в WhatsApp</a>
+</div>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // faq accordion
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.querySelector('.faq-q').addEventListener('click', () => {
+      const wasOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!wasOpen) item.classList.add('open');
+    });
+  });
+</script>
+
+</body>
+</html>
